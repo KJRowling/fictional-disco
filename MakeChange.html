@@ -1,20 +1,21 @@
 <html>
 <body>
 <h1>1</h1>
-<input id="slider1" type="range" min="0" max="10" value="0" step="1" onchange="showValue(this.value)"/>
+<input id="slider1" type="range" min="0" max="10" value="0" step="1" onchange="updateGuess(this.value)"/>
 <br>
 <h1>5</h1>
-<input id="slider5" type="range" min="0" max="10" value="0" step="1" onchange="showValue5(this.value)"/>
+<input id="slider5" type="range" min="0" max="59" value="0" step="5" onchange="updateGuess(this.value)"/>
 <br>
 <h1>10</h1>
-<input id="slider10" type="range" min="0" max="10" value="0" step="1" onchange="showValue10(this.value)"/>
+<input id="slider10" type="range" min="0" max="100" value="0" step="10" onchange="updateGuess(this.value)"/>
 <br>
 <h1>25</h1>
-<input id="slider100" type="range" min="0" max="10" value="0" step="1" onchange="showValue100(this.value)"/>
+<input id="slider100" type="range" min="0" max="250" value="0" step="25" onchange="updateGuess(this.value)"/>
 <br>
 <span id="question">0</span>
 <span id="range">0</span>
-
+<br>
+<span id="winner"></span>
 
 
 
@@ -23,7 +24,7 @@
 <script type="text/javascript">
 
 
-
+<!-- Initialize random number -->
 function randomCoins(){
 var randomnumber = Math.floor(Math.random()*100);
 document.getElementById("question").innerHTML = randomnumber;
@@ -33,41 +34,31 @@ window.onload = function() {
 	randomCoins();
 };
 
-function showValue(newValue)
+<!-- Check if user generated number = random number -->
+
+function isEqual(){
+if (document.getElementById("range").innerHTML === document.getElementById("question").innerHTML){
+document.getElementById("winner").innerHTML = "Correct!";
+}
+if (parseInt(document.getElementById("question").innerHTML) < parseInt(document.getElementById("range").innerHTML)){
+document.getElementById("winner").innerHTML = "You Lose";
+}
+}
+
+<!-- Sum value of all sliders and input in guess section -->
+function total(){
+document.getElementById("range").innerHTML = parseInt(document.getElementById("slider1").value)+parseInt(document.getElementById("slider5").value)+parseInt(document.getElementById("slider10").value)+parseInt(document.getElementById("slider100").value);
+
+
+}
+
+
+function updateGuess(newValue)
 {
-while (document.getElementById("slider1").value != 0){
-document.getElementById("range").innerHTML= parseInt(document.getElementById("range").innerHTML)+1;
-document.getElementById("slider1").value=document.getElementById("slider1").value-1;
-
-}
+total();
+isEqual();
 }
 
-function showValue5(newValue)
-{
-while (document.getElementById("slider5").value != 0){
-document.getElementById("range").innerHTML= parseInt(document.getElementById("range").innerHTML)+5;
-document.getElementById("slider5").value=document.getElementById("slider5").value-5;
-
-}
-}
-
-function showValue10(newValue)
-{
-while (document.getElementById("slider10").value != 0){
-document.getElementById("range").innerHTML= parseInt(document.getElementById("range").innerHTML)+10;
-document.getElementById("slider10").value=document.getElementById("slider10").value-10;
-
-}
-
-}
-function showValue100(newValue)
-{
-while (document.getElementById("slider100").value != 0){
-document.getElementById("range").innerHTML= parseInt(document.getElementById("range").innerHTML)+100;
-document.getElementById("slider100").value=document.getElementById("slider100").value-100;
-
-}
-};
 
 
 
